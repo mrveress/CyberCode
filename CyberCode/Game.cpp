@@ -1,21 +1,67 @@
 #include "stdafx.h"
 #include "Game.h"
-#include "Utils.h"
+#include "utils.h"
+#include "defines.h"
+#include "config.h"
 
 
 Game::Game()
 {
-	Utils::SetWindowSize(size_width, size_height);
-	system("cls");
-	setlocale(LC_ALL, "Russian");
-	clearScreen();
-	testStringToScreen(L"Htllo вот my dear friend", 2, 2);
-	render();
 }
 
 
 Game::~Game()
 {
+}
+
+void Game::start()
+{
+	Utils::SetWindowSize(size_width, size_height);
+	system("cls");
+	setlocale(LC_ALL, "Russian");
+	int chcode = -1;
+	int cur_x = 0;
+	int cur_y = 0;
+	while (chcode != CTRL_C) {
+		if (chcode == ARROW_HEAD_AP || chcode == ARROW_HEAD_NP)
+		{
+			switch (_getch())
+			{
+			case ARROW_UP:
+				cur_y--;
+				if (cur_y < 0) {
+					cur_y = size_height - 1;
+				}
+				break;
+			case ARROW_DOWN:
+				cur_y++;
+				if (cur_y >= size_height) {
+					cur_y = 0;
+				}
+				break;
+			case ARROW_LEFT:
+				cur_x--;
+				if (cur_x < 0) {
+					cur_x = size_width - 1;
+				}
+				break;
+			case ARROW_RIGHT:
+				cur_x++;
+				if (cur_x >= size_width) {
+					cur_x = 0;
+				}
+				break;
+			}
+		}
+		clearScreen();
+		testStringToScreen(L"This is unicode string and она должна показывать кириллицу", cur_y, cur_x);
+		render();
+		chcode = _getch();
+		if (_CC_DBG_LINE_NMBS) {
+			OutputDebugStringW(std::to_wstring(chcode).c_str());
+			OutputDebugStringW(L"\r\n");
+		}
+	}
 }
 
 void Game::render()
@@ -33,7 +79,7 @@ void Game::render()
 
 	for (int i = 0; i < size_height; i++) {
 		for (int j = 0; j < size_width; j++) {
-			if (j == 0) {
+			if (j == 0 && _CC_DBG_LINE_NMBS) {
 				std::wcout << i;
 				if (i < 10) {
 					std::wcout << L" ";
@@ -69,7 +115,6 @@ void Game::testStringToScreen(std::wstring str, int start_row, int start_col)
 	for (int i = 0; i < str_len; i++) {
 		if (cur_col >= size_width) {
 			cur_col = 0;
-			cur_row++;
 		}
 		if (cur_row >= size_height) {
 			cur_row = 0;

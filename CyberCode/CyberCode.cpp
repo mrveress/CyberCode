@@ -5,7 +5,7 @@
 int main()
 {
 	Game *game = new Game();
-	_getch();
+	game->start();
 	delete game;
     return 0;
 }
