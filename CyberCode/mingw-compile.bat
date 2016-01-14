@@ -1,2 +1,2 @@
 mkdir mingw-build
-g++ Utils.h Game.cpp CyberCode.cpp -finput-charset=CP1251 -o mingw-build\CyberCode.exe
+g++ -std=c++11 -finput-charset=CP1251 config.h defines.h utils.h Game.cpp CyberCode.cpp -o mingw-build\CyberCode.exe

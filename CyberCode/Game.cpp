@@ -4,7 +4,6 @@
 #include "defines.h"
 #include "config.h"
 
-
 Game::Game()
 {
 }
@@ -16,7 +15,7 @@ Game::~Game()
 
 void Game::start()
 {
-	Utils::SetWindowSize(size_width, size_height);
+	utils::SetWindowSize(size_width, size_height);
 	system("cls");
 	setlocale(LC_ALL, "Russian");
 	int chcode = -1;
@@ -58,7 +57,7 @@ void Game::start()
 		render();
 		chcode = _getch();
 		if (_CC_DBG_LINE_NMBS) {
-			OutputDebugStringW(std::to_wstring(chcode).c_str());
+			OutputDebugStringW(utils::to_wstring(chcode).c_str());
 			OutputDebugStringW(L"\r\n");
 		}
 	}

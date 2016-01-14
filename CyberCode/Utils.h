@@ -2,19 +2,9 @@
 
 #include "stdafx.h"
 
-class Utils
+namespace utils
 {
-public:
-
-	Utils()
-	{
-	}
-
-	~Utils()
-	{
-	}
-
-	static void SetWindowSize(int width, int height) {
+	void SetWindowSize(int width, int height) {
 		/* _COORD coord;
 		coord.X = width;
 		coord.Y = height;
@@ -34,6 +24,13 @@ public:
 		sprintf(command, tmplcommand, width + 1, height + 1);
 		system(command);
 		delete[] command;
+	}
+
+	template < typename T > std::wstring to_wstring(const T& n)
+	{
+		std::wstringstream stm;
+		stm << n;
+		return stm.str();
 	}
 };
 
