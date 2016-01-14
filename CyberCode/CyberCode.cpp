@@ -5,7 +5,8 @@
 int main()
 {
 	Game *game = new Game();
-	std::wcout << _getch();
+	_getch();
+	delete game;
     return 0;
 }
 

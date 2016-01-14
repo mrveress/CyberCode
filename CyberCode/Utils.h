@@ -15,7 +15,7 @@ public:
 	}
 
 	static void SetWindowSize(int width, int height) {
-		_COORD coord;
+		/* _COORD coord;
 		coord.X = width;
 		coord.Y = height;
 
@@ -23,11 +23,17 @@ public:
 		Rect.Top = 0;
 		Rect.Left = 0;
 		Rect.Bottom = height - 1;
-		Rect.Right = width - 1;
+		Rect.Right = width -1;
 
 		HANDLE Handle = GetStdHandle(STD_OUTPUT_HANDLE);
 		SetConsoleScreenBufferSize(Handle, coord);
-		SetConsoleWindowInfo(Handle, TRUE, &Rect);
+		SetConsoleWindowInfo(Handle, TRUE, &Rect); */
+
+		const char *tmplcommand = "mode con: cols=%d lines=%d";
+		char *command = new char[(sizeof(tmplcommand) / sizeof(char)) + 32];
+		sprintf(command, tmplcommand, width + 1, height + 1);
+		system(command);
+		delete[] command;
 	}
 };
 

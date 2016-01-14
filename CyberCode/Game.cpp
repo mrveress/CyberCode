@@ -5,8 +5,7 @@
 
 Game::Game()
 {
-	Utils::SetWindowSize(size_width + 1, size_height + 1);
-	Utils::SetWindowSize(size_width + 1, size_height + 1);
+	Utils::SetWindowSize(size_width, size_height);
 	system("cls");
 	setlocale(LC_ALL, "Russian");
 	clearScreen();
@@ -25,6 +24,9 @@ void Game::render()
 	COORD nulCoord;
 	nulCoord.X = 0;
 	nulCoord.Y = 0;
+	COORD rbCoord;
+	rbCoord.X = size_width - 1;
+	rbCoord.Y = size_height - 1;
 
 	SetConsoleTextAttribute(hOut, 31);
 	SetConsoleCursorPosition(hOut, nulCoord);
@@ -46,7 +48,7 @@ void Game::render()
 			}
 		}
 	}
-
+	SetConsoleCursorPosition(hOut, rbCoord);
 	SetConsoleTextAttribute(hOut, 15);
 }
 
