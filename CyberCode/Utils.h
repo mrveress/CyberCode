@@ -1,10 +1,11 @@
 #pragma once
-
-#include "stdafx.h"
-
-namespace game {
-	namespace utils {
-		void SetWindowSize(int width, int height) {
+namespace game{
+	class Utils
+	{
+	public:
+		Utils(){}
+		~Utils(){}
+		static void SetWindowSize(int width, int height) {
 			/* _COORD coord;
 			coord.X = width;
 			coord.Y = height;
@@ -25,12 +26,23 @@ namespace game {
 			system(command);
 			delete[] command;
 		}
-
-		template < typename T > std::wstring to_wstring(const T& n)
-		{
+		template < typename T > std::wstring to_wstring(const T& n){
 			std::wstringstream stm;
 			stm << n;
 			return stm.str();
 		}
-	}
-};
+
+	};
+
+	class Coords
+	{
+	public:
+		Coords(int x, int y){
+			this->x = x;
+			this->y = y;
+		}
+		~Coords();
+		int x, y;
+	};
+}
+

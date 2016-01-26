@@ -1,4 +1,5 @@
 #pragma once
+#include "Utils.h"
 namespace game {
 	namespace actors {
 		class User
@@ -11,11 +12,12 @@ namespace game {
 			double rh; //Regen health
 			double rm; //Regen mana
 			short speed;
-			int coords[2]; //Coords
+			game::Coords* coords; //Coords
+
 		public:
 			void move(short x, short y);
 			void move(int DIR);
-			int* getCoords();
+			game::Coords* getCoords();
 			User();
 			~User();
 		};

@@ -6,7 +6,8 @@
 
 game::renders::Render::Render()
 {
-	game::utils::SetWindowSize(size_width, size_height);
+	clearScreen();
+	game::Utils::SetWindowSize(size_width, size_height);
 	system("cls");
 	setlocale(LC_ALL, "Russian");
 	clearScreen();
@@ -53,9 +54,21 @@ void game::renders::Render::draw()
 
 void game::renders::Render::clearScreen()
 {
+	screen = new wchar_t*[size_height];
 	for (int i = 0; i < size_height; i++) {
+		screen[i] = new wchar_t[size_width];
 		for (int j = 0; j < size_width; j++) {
 			screen[i][j] = L' ';
 		}
 	}
+}
+
+wchar_t** game::renders::Render::getScreen()
+{
+	return screen;
+}
+
+wchar_t* game::renders::Render::getCell(game::Coords* coords)
+{
+	return &screen[coords->y][coords->x];
 }

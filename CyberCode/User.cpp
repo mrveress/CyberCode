@@ -1,18 +1,18 @@
 #include "stdafx.h"
-#include "User.h"
 #include "defines.h"
+#include "Utils.h"
+#include "User.h"
 
 game::actors::User::User()
 {
-	coords[0] = 0;
-	coords[1] = 0;
+	coords = new game::Coords(0,0);
 	speed = 1;
 }
 
 void game::actors::User::move(short x, short y)
 {
-	coords[0] += x * speed;
-	coords[1] += y * speed;
+	coords->x += x * speed;
+	coords->y += y * speed;
 }
 
 void game::actors::User::move(int DIR)
@@ -37,7 +37,7 @@ void game::actors::User::move(int DIR)
 	};
 }
 
-int* game::actors::User::getCoords() {
+game::Coords* game::actors::User::getCoords() {
 	return this->coords;
 }
 

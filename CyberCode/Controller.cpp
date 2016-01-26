@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "defines.h"
 #include "User.h"
+#include "Render.h"
 #include "Controller.h"
 
 
@@ -18,6 +19,11 @@ void game::controllers::Controller::setUser(game::actors::User* user)
 	this->user = user;
 }
 
+void game::controllers::Controller::setRender(game::renders::Render* rndr)
+{
+	this->render = rndr;
+}
+
 void game::controllers::Controller::startHandling() 
 {
 	int chcode = -1;
@@ -27,19 +33,27 @@ void game::controllers::Controller::startHandling()
 			switch (_getch())
 			{
 			case ARROW_UP:
-				this->user->move(DIR_TOP);
+				user->move(DIR_TOP);
 				break;
 			case ARROW_DOWN:
-				this->user->move(DIR_BOTTOM);
+				user->move(DIR_BOTTOM);
 				break;
 			case ARROW_LEFT:
-				this->user->move(DIR_LEFT);
+				user->move(DIR_LEFT);
 				break;
 			case ARROW_RIGHT:
-				this->user->move(DIR_RIGHT);
+				user->move(DIR_RIGHT);
 				break;
 			}
 		}
-		this->render->draw();
+		render->clearScreen();
+		if (
+			user->getCoords()->x >= 0 && user->getCoords()->x < game::renders::Render::size_width &&
+			user->getCoords()->y >= 0 && user->getCoords()->y < game::renders::Render::size_height
+			) {
+			*(render->getCell(user->getCoords())) = L'@';
+		}
+		render->draw();
+		chcode = _getch();
 	}
 }
